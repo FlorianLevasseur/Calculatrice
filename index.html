@@ -18,7 +18,7 @@
         <input class="w-100 bg-secondary text-end text-white pe-2" type="text" id="nb2" disabled>
         <input class="w-100 bg-secondary text-end text-white screenBottom pb-4 pe-2" type="text" id="result" disabled>
     </div>
-    <div class="row m-auto mt-3">
+    <div class="row m-auto mt-3 unselectable">
         <div class="col-3 text-center">
             <div class="text-white" id="ch7">7</div>
         </div>
@@ -81,13 +81,26 @@
     </div>
     <script>
 
+        function raz() {
+            document.getElementById("nb1").value = ""
+            document.getElementById("sign").value = ""
+            document.getElementById("nb2").value = ""
+            document.getElementById("result").value = ""
+        }
+
+        document.getElementById("RAZ").onclick = () => raz()
+
         function writeNb(nb) {
+            if(document.getElementById("result").value != 0){
+                raz()
+            }
             if (document.getElementById("sign").value == "") {
                 document.getElementById("nb1").value += `${nb}`
             } else {
                 document.getElementById("nb2").value += `${nb}`
             }
         }
+
         document.getElementById("ch0").onclick = () => writeNb(0)
         document.getElementById("ch1").onclick = () => writeNb(1)
         document.getElementById("ch2").onclick = () => writeNb(2)
@@ -98,6 +111,20 @@
         document.getElementById("ch7").onclick = () => writeNb(7)
         document.getElementById("ch8").onclick = () => writeNb(8)
         document.getElementById("ch9").onclick = () => writeNb(9)
+
+        function writeSign(sign){
+            document.getElementById("sign").value = `${sign}`
+            if(document.getElementById("result").value != 0){
+                document.getElementById("nb1").value = document.getElementById("result").value
+                document.getElementById("nb2").value = ""
+                document.getElementById("result").value = ""
+            }
+        }
+
+        document.getElementById("signPlus").onclick = () => writeSign("+")
+        document.getElementById("signMoins").onclick = () => writeSign("-")
+        document.getElementById("signMult").onclick = () => writeSign("*")
+        document.getElementById("signDivis").onclick = () => writeSign("/")
 
         document.getElementById("signPoint").onclick = () => {
             if (document.getElementById("sign").value == "") {
@@ -111,40 +138,22 @@
             }
         }
 
-        document.getElementById("signPlus").onclick = () => {
-            document.getElementById("sign").value = "+"
-        }
-        document.getElementById("signMoins").onclick = () => {
-            document.getElementById("sign").value = "-"
-        }
-        document.getElementById("signMult").onclick = () => {
-            document.getElementById("sign").value = "*"
-        }
-        document.getElementById("signDivis").onclick = () => {
-            document.getElementById("sign").value = "/"
-        }
-        document.getElementById("RAZ").onclick = () => {
-            document.getElementById("nb1").value = ""
-            document.getElementById("sign").value = ""
-            document.getElementById("nb2").value = ""
-            document.getElementById("result").value = ""
-        }
         document.getElementById("signEgal").onclick = () => {
             if (document.getElementById("nb1").value != "" && document.getElementById("sign").value != "" &&
                 document.getElementById("nb2").value != "") {
                 
                 switch(document.getElementById("sign").value) {
                     case "+" :
-                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) + Number(document.getElementById("nb2").value)}`
+                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) + Number(document.getElementById("nb2").value)}`
                         break;
                     case "-" :
-                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) - Number(document.getElementById("nb2").value)}`
+                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) - Number(document.getElementById("nb2").value)}`
                         break;
                     case "*" :
-                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) * Number(document.getElementById("nb2").value)}`
+                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) * Number(document.getElementById("nb2").value)}`
                         break;
                     case "/" :
-                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) / Number(document.getElementById("nb2").value)}`
+                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) / Number(document.getElementById("nb2").value)}`
                         break;
                 }
             }

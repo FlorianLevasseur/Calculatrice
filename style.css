@@ -1,6 +1,11 @@
 body {
     background-color: black;
     font-size: 2.5rem;
+    -webkit-user-select: none; 
+    -webkit-touch-callout: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none;
 }
 
 input {
