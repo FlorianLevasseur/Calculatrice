@@ -81,23 +81,28 @@
     </div>
     <script>
 
+        let num1 = document.getElementById("nb1")
+        let operator = document.getElementById("sign")
+        let num2 = document.getElementById("nb2")
+        let res = document.getElementById("result")
+
         function raz() {
-            document.getElementById("nb1").value = ""
-            document.getElementById("sign").value = ""
-            document.getElementById("nb2").value = ""
-            document.getElementById("result").value = ""
+            num1.value = ""
+            operator.value = ""
+            num2.value = ""
+            res.value = ""
         }
 
         document.getElementById("RAZ").onclick = () => raz()
 
         function writeNb(nb) {
-            if(document.getElementById("result").value != ""){
+            if(res.value != ""){
                 raz()
             }
-            if (document.getElementById("sign").value == "") {
-                document.getElementById("nb1").value += nb
+            if (operator.value == "") {
+                num1.value += nb
             } else {
-                document.getElementById("nb2").value += nb
+                num2.value += nb
             }
         }
 
@@ -113,50 +118,61 @@
         document.getElementById("ch9").onclick = () => writeNb(9)
 
         function writeSign(sign){
-            document.getElementById("sign").value = sign
-            if(document.getElementById("result").value != ""){
-                document.getElementById("nb1").value = document.getElementById("result").value
-                document.getElementById("nb2").value = ""
-                document.getElementById("result").value = ""
+            if(num1.value != "" && num1.value != "-"){
+                operator.value = sign
+                if(res.value != ""){
+                    num1.value = res.value
+                    num2.value = ""
+                    res.value = ""
+                }
+                if(num2.value != ""){
+                    num2.value = ""
+                }
             }
-            if(document.getElementById("nb2").value != ""){
-                document.getElementById("nb2").value = ""
-            }
+        }
+        function specialSign(sign){
+            num1.value = sign
         }
 
         document.getElementById("signPlus").onclick = () => writeSign("+")
-        document.getElementById("signMoins").onclick = () => writeSign("-")
+        document.getElementById("signMoins").onclick = () => {
+            if(num1.value != ""){
+                writeSign("-")
+            } else {
+                specialSign("-")
+            }
+        }
         document.getElementById("signMult").onclick = () => writeSign("*")
         document.getElementById("signDivis").onclick = () => writeSign("/")
 
         document.getElementById("signPoint").onclick = () => {
-            if (document.getElementById("sign").value == "") {
-                if (!document.getElementById("nb1").value.includes(".")) {
-                    document.getElementById("nb1").value += "."
+            if (operator.value == "") {
+                if (!num1.value.includes(".")) {
+                    num1.value += "."
                 }
             } else {
-                if (!document.getElementById("nb2").value.includes(".")) {
-                    document.getElementById("nb2").value += "."
+                if (!num2.value.includes(".")) {
+                    num2.value += "."
                 }
             }
         }
 
         document.getElementById("signEgal").onclick = () => {
-            if (document.getElementById("nb1").value != "" && document.getElementById("sign").value != "" &&
-                document.getElementById("nb2").value != "") {
+            if (num1.value != "" && operator.value != "" &&
+                num2.value != "") {
                 
-                switch(document.getElementById("sign").value) {
+                switch(operator.value) {
                     case "+" :
-                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) + Number(document.getElementById("nb2").value)}`
+                        res.value = `${Number(num1.value) + Number(num2.value)}`
                         break;
                     case "-" :
-                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) - Number(document.getElementById("nb2").value)}`
+                        res.value = `${Number(num1.value) - Number(num2.value)}`
                         break;
                     case "*" :
-                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) * Number(document.getElementById("nb2").value)}`
+                        res.value = `${Number(num1.value) * Number(num2.value)}`
                         break;
                     case "/" :
-                        document.getElementById("result").value = `${Number(document.getElementById("nb1").value) / Number(document.getElementById("nb2").value)}`
+                        res.value = `${Number(num.value) / Number(num2.value)}`
                         break;
                 }
             }
