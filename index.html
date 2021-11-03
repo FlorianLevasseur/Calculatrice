@@ -80,6 +80,7 @@
         </div>
     </div>
     <script>
+
         function writeNb(nb) {
             if (document.getElementById("sign").value == "") {
                 document.getElementById("nb1").value += `${nb}`
@@ -131,18 +132,20 @@
         document.getElementById("signEgal").onclick = () => {
             if (document.getElementById("nb1").value != "" && document.getElementById("sign").value != "" &&
                 document.getElementById("nb2").value != "") {
-                if (document.getElementById("sign").value == "+") {
-                    document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) + Number(
-                        document.getElementById("nb2").value)}`
-                } else if (document.getElementById("sign").value == "-") {
-                    document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) - Number(
-                        document.getElementById("nb2").value)}`
-                } else if (document.getElementById("sign").value == "*") {
-                    document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) * Number(
-                        document.getElementById("nb2").value)}`
-                } else if (document.getElementById("sign").value == "/") {
-                    document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) / Number(
-                        document.getElementById("nb2").value)}`
+                
+                switch(document.getElementById("sign").value) {
+                    case "+" :
+                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) + Number(document.getElementById("nb2").value)}`
+                        break;
+                    case "-" :
+                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) - Number(document.getElementById("nb2").value)}`
+                        break;
+                    case "*" :
+                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) * Number(document.getElementById("nb2").value)}`
+                        break;
+                    case "/" :
+                        document.getElementById("result").value = `= ${Number(document.getElementById("nb1").value) / Number(document.getElementById("nb2").value)}`
+                        break;
                 }
             }
         }
