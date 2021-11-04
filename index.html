@@ -13,10 +13,10 @@
 
 <body>
     <div class="m-1">
-        <input class="w-100 bg-secondary text-end text-white screenTop pt-4 pe-2" type="text" id="nb1" disabled>
-        <input class="w-100 bg-secondary text-end text-white pe-2" type="text" id="sign" disabled>
-        <input class="w-100 bg-secondary text-end text-white pe-2" type="text" id="nb2" disabled>
-        <input class="w-100 bg-secondary text-end text-white screenBottom pb-4 pe-2" type="text" id="result" disabled>
+        <input class="w-100 bg-black text-end text-white screenTop pt-4 pe-4" type="text" id="nb1" disabled>
+        <input class="w-100 bg-black text-end text-white pe-4" type="text" id="sign" disabled>
+        <input class="w-100 bg-black text-end text-white pe-4" type="text" id="nb2" disabled>
+        <input class="w-100 bg-black text-end text-white screenBottom pb-4 pe-4" type="text" id="result" disabled>
     </div>
     <div class="row m-auto mt-3">
         <div class="col-3 text-center">
@@ -131,15 +131,19 @@
             }
         }
         function specialSign(sign){
-            num1.value = sign
+            if(num1.value == ""){
+                num1.value = sign
+            } else if(num1.value != "" && operator.value != ""){
+                num2.value = sign
+            }
         }
 
         document.getElementById("signPlus").onclick = () => writeSign("+")
         document.getElementById("signMoins").onclick = () => {
-            if(num1.value != ""){
-                writeSign("-")
-            } else {
+            if(num1.value == "" || (num1.value != "" && operator.value != "" && num2.value == "")){
                 specialSign("-")
+            } else {
+                writeSign("-")
             }
         }
         document.getElementById("signMult").onclick = () => writeSign("*")
@@ -172,7 +176,7 @@
                         res.value = `${Number(num1.value) * Number(num2.value)}`
                         break;
                     case "/" :
-                        res.value = `${Number(num.value) / Number(num2.value)}`
+                        res.value = `${Number(num1.value) / Number(num2.value)}`
                         break;
                 }
             }
